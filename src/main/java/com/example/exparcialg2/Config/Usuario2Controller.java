@@ -32,7 +32,9 @@ public class Usuario2Controller {
 
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuario");
         List<Pedido> listaPedidos= pedidoRepository.listaPedidos(usuarioLogueado.getIdusuario());
+
         model.addAttribute("listaPedidos",listaPedidos);
+
         return "pedidos/lista";
     }
     @PostMapping("/buscar")
@@ -44,6 +46,7 @@ public class Usuario2Controller {
     public String tienda(Model model, HttpSession session){
 
         Usuario u = (Usuario) session.getAttribute("usuario");
+        
         
         List<Juego> juegos = juegoRepository.listaJuegosQueNoTieneUsuario(u.getIdusuario());
 
