@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css"  th:href="@{'/css/bootstrap.css'}" >
+</head>
+<body>
+    <div sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0">
+        <a class="nav-link" th:href="@{/loginForm}">Iniciar Sesión</a>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
+        <span th:text="|Bienvenido ${#authentication.name}|"></span>
+        <form th:action="@{/logout}" method="post">
+            <input class="btn btn-link" type="submit" value="(Cerrar Sesión)"/>
+        </form>
+    </div>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/nuevo'}">Nuevo Producto</a>
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <form method="post" th:action="@{/producto/buscar}">
+        <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>
+    </form>
+    <div th:height="1200px" th:width="800px">
+        <div th:each="Producto,pro:${listaProductos}" th:height="200" th:width="600px">
+            <div th:align="left" th:height="150px" th:width="100px">
+                <h4>Aqui va la foto xD</h4>
+            </div>
+            <div th:align="right" th:height="150px" th:width="450px">
+                <h3 th:text="${Producto.codigoproducto}"></h3>
+                <h3 th:text="${Producto.nombre}"></h3>
+                <h3 th:text="${Producto.precio}"></h3>
+                <h3 th:text="${Producto.stock}"></h3>
+                <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
+                <a class="btn btn-danger" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
+            </div>
+        </div>
+        <h2>Aqui va la Paginacion</h2>
+    </div>
+</body>
+</html>

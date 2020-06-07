@@ -9,6 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -67,5 +70,26 @@ public class ProductoController {
             attr.addFlashAttribute("msg", "Producto borrado exitosamente");
         }
         return "redirect:/producto";
+    }
+    @PostMapping("/buscar")
+    public String buscar(@RequestParam("searchField") String searchField,
+                                      Model model) {
+        List<Producto> lista = productoRepository.findAll();
+        List<Producto> lista2= new ArrayList<>();
+        for(Producto p : lista){
+            if(p.getNombre().contains(searchField) || p.getCodigoproducto().contains(searchField)){
+                lista2.add(p);
+            }
+        }
+        model.addAttribute("listaProductos", lista2);
+        return "producto/lista";
+    }
+    @GetMapping("/detalle")
+    public String detalleProducto(@RequestParam("id") int id,
+                                     Model model) {
+        Optional<Producto> p =productoRepository.findById(id);
+        Producto produc=p.get();
+        model.addAttribute("produc",produc);
+        return "producto/detalle";
     }
 }
