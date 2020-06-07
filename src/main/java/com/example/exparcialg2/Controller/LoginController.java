@@ -31,8 +31,8 @@ public class LoginController {
         Usuario usuario = usuarioRepository.findByCorreo(username);
         session.setAttribute("usuario",usuario);
 
-        if(rol.equals("Administrador")){
-            return "redirect:/usuario/lista";
+        if(rol.equals("administrador")){
+            return "redirect:/admin/lista";
         }else {
             if (rol.equals("sede")){
                 return "redirect:/artesano";
