@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario")
@@ -23,7 +24,7 @@ public class UsuarioController {
 
     @GetMapping("/listargestores")
     public String listarUsuarios(Model model) {
-        model.addAttribute("listausuarios", usuarioRepository.findByIdRol(2));
+        model.addAttribute("listagestores", usuarioRepository.listargestores());
         return "usuario/lista";
     }
 
@@ -54,7 +55,7 @@ public class UsuarioController {
 
     @GetMapping("/nuevogestor")
     public String nuevogestor() {
-        return "formgestor";
+        return "usuario/formgestor";
     }
 
     @PostMapping("/registrargestor")
@@ -62,15 +63,32 @@ public class UsuarioController {
         if (bindingResult.hasErrors()) {
             return "usuario/formgestor";
         }
-        usuario.setContrasena(gencontrasena());
-
+        if(usuario.getIdusuario()==0) {
+            String contraStr = gencontrasena();
+            usuario.setContrasena(encriptar(contraStr));
+        }
         //falta enviar contraseña al correo
         usuarioRepository.save(usuario);
         return "usuario/lista";
     }
-
-    public String editargestor(@ModelAttribute("usuario") Usuario usuario, Model model, @RequestParam("id") int id){
-        return "usuario/form";
+    @GetMapping("/editargestor")
+    public String editargestor(@ModelAttribute("usuario") Usuario usuario, Model model, @RequestParam("id") int id) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+        if (optionalUsuario.isPresent()) {
+            usuario = optionalUsuario.get();
+            model.addAttribute("usuario", usuario);
+            return "usuario/formgestor";
+        } else {
+            return "redirect: /usuario/listagestores";
+        }
+    }
+    @GetMapping("/borrargestor")
+    public String borrargestor(Model model, @RequestParam("id") int id){
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
+        if(optionalUsuario.isPresent()){
+            usuarioRepository.deleteById(id);
+        }
+        return "redirect: /usuario/listagestores";
     }
 
     //funcion random

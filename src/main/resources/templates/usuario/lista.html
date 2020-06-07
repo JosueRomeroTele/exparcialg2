@@ -13,20 +13,22 @@
             <th>#</th>
             <th>Nombre</th>
             <th>Apellido</th>
+            <th>DNI</th>
+            <th>Correo</th>
             <th></th>
             <th></th>
         </tr>
-        <tr th:each="usuario, info : ${listausuarios}">
+        <tr th:each="usuario, info : ${listagestores}">
             <td th:text="${info.index + 1}"></td>
             <td th:text="${usuario.nombre}"></td>
             <td th:text="${usuario.apellido}"></td>
             <td th:text="${usuario.dni}"></td>
             <td th:text="${usuario.correo}"></td>
             <td><a class="btn btn-primary"
-                   th:href="@{'/shipper/edit' + '?id=' + ${usuario.idusuario}}">Editar</a>
+                   th:href="@{'/usuario/editargestor' + '?id=' + ${usuario.idusuario}}">Editar</a>
             </td>
             <td><a class="btn btn-danger"
-                   th:href="@{'/shipper/delete' + '?id=' + ${usuario.idusuario}}">Borrar</a>
+                   th:href="@{'/usuario/borrargestor' + '?id=' + ${usuario.idusuario}}">Borrar</a>
             </td>
         </tr>
     </table>
