@@ -1,5 +1,6 @@
 package com.example.exparcialg2.Config;
 
+import com.example.exparcialg2.Dtos.StorageService;
 import com.example.exparcialg2.Entity.Producto;
 import com.example.exparcialg2.Repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,20 +35,31 @@ public class ProductoController {
         return "producto/form";
     }
     @PostMapping("/guardar")
-    public String guardarProducto(@ModelAttribute("producto") @Valid Producto producto, BindingResult bindingResult,
+    public String guardarProducto(@RequestParam("archivo")MultipartFile file, @ModelAttribute("producto") @Valid Producto producto, BindingResult bindingResult,
                                   RedirectAttributes attr, Model model) {
-        if (bindingResult.hasErrors()){
+        StorageService storageService = null;
+        HashMap<String,String> map = storageService.store(file);
+        if(map.get("estado").equals("exito")){
+            producto.setFoto(map.get("fileName"));
+            if (bindingResult.hasErrors()){
+                return "producto/form";
+            }
+            else{
+                if (producto.getIdproducto() == 0) {
+                    attr.addFlashAttribute("msg", "Producto creado exitosamente");
+                } else {
+                    attr.addFlashAttribute("msg", "Producto actualizado exitosamente");
+                }
+                productoRepository.save(producto);
+                return "redirect:/producto";
+            }
+        }
+        else {
+            model.addAttribute("msgg",map.get("msg"));
             return "producto/form";
         }
-        else{
-            if (producto.getIdproducto() == 0) {
-                attr.addFlashAttribute("msg", "Producto creado exitosamente");
-            } else {
-                attr.addFlashAttribute("msg", "Producto actualizado exitosamente");
-            }
-            productoRepository.save(producto);
-            return "redirect:/producto";
-        }
+
+
     }
 
     @GetMapping("/editar")

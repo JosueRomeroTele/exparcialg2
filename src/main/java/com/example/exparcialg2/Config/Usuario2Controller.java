@@ -42,33 +42,7 @@ public class Usuario2Controller {
 
         return "pedidos/lista";
     }
-    @GetMapping("/tienda")
-    public String tienda(Model model, HttpSession session){
 
-        Usuario u = (Usuario) session.getAttribute("usuario");
-        
-        
-        List<Juego> juegos = juegoRepository.listaJuegosQueNoTieneUsuario(u.getIdusuario());
-
-        List<Juego> juegosEnSession = (ArrayList<Juego>) session.getAttribute("juegosCarritoDeCompras");
-
-        List<Juego> juegosEnTienda = new ArrayList<>();
-
-        for(Juego j : juegos){
-            boolean juegoExisteSesion = false;
-            for(Juego js : juegosEnSession){
-                if(j.getIdjuego() == js.getIdjuego()){
-                    juegoExisteSesion = true;
-                    break;
-                }
-            }
-            if(!juegoExisteSesion){
-                juegosEnTienda.add(j);
-            }
-        }
-        model.addAttribute("listaJuegos",juegosEnTienda);
-        return "user/tienda";
-    }
 
 
 
