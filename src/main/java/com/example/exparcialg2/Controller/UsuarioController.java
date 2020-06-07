@@ -4,16 +4,16 @@ import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.Binding;
-import javax.persistence.NamedStoredProcedureQueries;
-import javax.persistence.StoredProcedureQuery;
 import javax.validation.Valid;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 @Controller
 @RequestMapping("/usuario")
@@ -29,18 +29,21 @@ public class UsuarioController {
 
     @GetMapping("/nuevousuario")
     public String nuevo(Model model) {
-        return "usuario/form";
+        return "formgestor";
     }
 
     @PostMapping("/registrarusuario")
     public String guardar(Model model, @ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingResult, RedirectAttributes redirectAttributes,
                           @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestParam("dni") String dni, @RequestParam("correo") String correo,
-                          @RequestParam("contraseña")String contrasena, @RequestParam("rol") Integer rol, @RequestParam("ena") boolean ena) {
+                          @RequestParam("contraseña") String contrasena, @RequestParam("ena") boolean ena) {
         if (bindingResult.hasErrors()) {
-            return "usuario/form";
+            return "usuario/formusuario";
         }
         //store procedure
-        crearempleado(nombre, apellido, dni, correo, contrasena, rol, ena);
+        int rolguardado = 2;
+
+        String contrahash = encriptar(contrasena);
+        crearempleado(nombre, apellido, dni, correo, contrahash, rolguardado, ena);
         return "listaproductoss/modificar";
     }
 
@@ -48,17 +51,34 @@ public class UsuarioController {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.update("call crearusuario(?, ?, ?, ?, ?, ?, ?)", nombre, apellido, dni, correo, contrasena, rol, ena);
     }
-    @GetMapping("/nuevogestor")
-    public String nuevogestor(){
-        return "usuario/form";
-    }
-    @PostMapping("/guardargestor")
-    public String guardargestor(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "usuario/form";
-        }
 
+    @GetMapping("/nuevogestor")
+    public String nuevogestor() {
+        return "formgestor";
+    }
+
+    @PostMapping("/registrargestor")
+    public String guardargestor(@ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "usuario/formgestor";
+        }
+        usuario.setContrasena(gencontrasena());
+
+        //falta enviar contraseña al correo
         usuarioRepository.save(usuario);
         return "usuario/lista";
+    }
+
+    //funcion random
+    public static String gencontrasena() {
+        SecureRandom secureRandom = new SecureRandom();
+        String contra = new BigInteger(40, secureRandom).toString(32);
+        return contra;
+    }
+
+    public String encriptar(String pww) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        pww = bCryptPasswordEncoder.encode(pww);
+        return pww;
     }
 }

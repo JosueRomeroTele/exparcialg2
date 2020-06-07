@@ -20,6 +20,8 @@
             <td th:text="${info.index + 1}"></td>
             <td th:text="${usuario.nombre}"></td>
             <td th:text="${usuario.apellido}"></td>
+            <td th:text="${usuario.dni}"></td>
+            <td th:text="${usuario.correo}"></td>
             <td><a class="btn btn-primary"
                    th:href="@{'/shipper/edit' + '?id=' + ${usuario.idusuario}}">Editar</a>
             </td>
