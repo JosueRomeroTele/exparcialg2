@@ -16,6 +16,7 @@ public class Producto implements Serializable {
     private String nombre;
     private BigDecimal precio;
     private int stock;
+
     @Column(name = "drescripcion")
     private String descripcion;
     private String foto;
@@ -63,6 +64,7 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
+
     public int getStock() {
         return stock;
     }
@@ -70,6 +72,7 @@ public class Producto implements Serializable {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
 
     public String getDescripcion() {
         return descripcion;
@@ -86,7 +89,6 @@ public class Producto implements Serializable {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-
 
 
 

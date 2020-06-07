@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class ProductoController {
         if (optProducto.isPresent()) {
             producto = optProducto.get();
             model.addAttribute("producto", producto);
-            return "producto/form";
+            return "producto/formEditar";
         } else {
             return "redirect:/producto";
         }

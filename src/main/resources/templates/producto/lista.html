@@ -28,7 +28,10 @@
                 <h3 th:text="${Producto.precio}"></h3>
                 <h3 th:text="${Producto.stock}"></h3>
                 <a class="btn btn-info" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
-                <a class="btn btn-success" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
+
+                <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/editar' + '?id=' + ${Producto.idproducto}}">Editar</a>
+                <a class="btn btn-danger" th:height="20px" th:width="20px"  th:href="@{'/producto/borrar' + '?id=' + ${Producto.idproducto}}">Borrar</a>
+                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
             </div>
         </div>
         <h2>Aqui va la Paginacion</h2>
