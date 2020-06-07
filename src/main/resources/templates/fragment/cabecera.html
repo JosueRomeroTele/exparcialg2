@@ -25,7 +25,7 @@
                     <a class="nav-link" th:href="@{/producto}">PRODUCTOS</a>
                 </li>
 
-                <li class="nav-item">
+                <li sec:authorize="hasAnyAuthority('registrado')" class="nav-item">
                     <a class="nav-link" th:href="@{/pedidos}">PEDIDO</a>
                 </li>
 
