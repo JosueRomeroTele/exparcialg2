@@ -8,7 +8,8 @@ public class PruebaController {
 
     @GetMapping(value = {"","/"})
     public String entrarPagina(){
-        return "prueba/login";
+        return "prueba/entrar";
     }
+
 
 }

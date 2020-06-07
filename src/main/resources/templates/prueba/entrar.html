@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragment/cabecera.html :: titulo( title = 'jeje')"></head>
+
 <body>
+
+<div class="container">
+    <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
+</div>
 
 </body>
 </html>
