@@ -28,6 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
         ;
 
+        http.rememberMe().tokenValiditySeconds(172800).rememberMeParameter("recordar");
+
+
         http.authorizeRequests().antMatchers( "/registrado", "/registrado/**").hasAuthority("Administrador");
         http.authorizeRequests().antMatchers("/gestor", "/gestor/**").hasAnyAuthority( "Gestor principal", "sede");
         http.authorizeRequests().antMatchers("/administrador", "/administrador/**", "/comunidad", "/comunidad/**").hasAnyAuthority("Gestor principal", "sede");
