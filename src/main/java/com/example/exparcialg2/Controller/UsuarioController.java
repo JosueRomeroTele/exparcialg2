@@ -69,6 +69,10 @@ public class UsuarioController {
         return "usuario/lista";
     }
 
+    public String editargestor(@ModelAttribute("usuario") Usuario usuario, Model model, @RequestParam("id") int id){
+        return "usuario/form";
+    }
+
     //funcion random
     public static String gencontrasena() {
         SecureRandom secureRandom = new SecureRandom();
