@@ -15,7 +15,7 @@ public class Pedido implements Serializable {
     private int idpedido;
     @Column(nullable = false)
     private Date fechacompra;
-    @Column(nullable = false)
+    @Column(name="codigopedido" ,nullable = false)
     private String codigo;
     private BigDecimal totalpago;
     @ManyToOne
@@ -24,7 +24,7 @@ public class Pedido implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "productoHasPedido",
+            name = "producto_has_pedido",
             joinColumns = @JoinColumn(name = "idpedido"),
             inverseJoinColumns = @JoinColumn(name = "idproducto"))
     private List<Producto> listaProductos;

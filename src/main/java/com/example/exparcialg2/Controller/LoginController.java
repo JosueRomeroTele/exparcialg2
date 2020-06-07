@@ -43,10 +43,10 @@ public class LoginController {
         if(rol.equals("administrador")){
             return "redirect:/producto";
         }else {
-            if (rol.equals("gestor")){
-                return "redirect:/gestor";
+            if (rol.equals("registrado")){
+                return "redirect:/producto";
             }else{
-                return "redirect:/invitado";
+                return "redirect:/producto";
             }
         }
     }

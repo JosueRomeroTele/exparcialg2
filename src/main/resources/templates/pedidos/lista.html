@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragment/cabecera.html :: titulo(tittle='Lista Pedidos')">
+
+<body>
+<div class="container">
+    <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
+</div>
+<form method="post" th:action="@{/pedidos/buscar}">
+    <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>
+</form>
+<div th:height="1200px" th:width="800px">
+    <div th:each="Pedidos,p:${listaPedidos}" th:height="200" th:width="600px">
+        <h3 th:text="${Pedidos.codigo}"></h3>
+        <div th:each="producto, pro :${Pedidos.getListaProductos()}" th:align="left" th:height="150px" th:width="450px">
+            <h3 th:text="${producto.nombre}"></h3>
+        </div>
+    </div>
+    <h2>Aqui va la Paginacion</h2>
+</div>
+</body>
+</html>
