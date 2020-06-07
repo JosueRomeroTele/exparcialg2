@@ -31,9 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //http.rememberMe().tokenValiditySeconds(172800).rememberMeParameter("recordar");
 
 
-        http.authorizeRequests().antMatchers( "/producto", "/producto/**").hasAuthority("registrado");
-        http.authorizeRequests().antMatchers("/gestor", "/gestor/**").hasAnyAuthority( "Gestor principal", "sede");
-        http.authorizeRequests().antMatchers("/admin", "/admin/**").hasAnyAuthority("administrador", "gesto");
+        //http.authorizeRequests().antMatchers("/gestor", "/gestor/**").hasAnyAuthority( "Gestor principal", "sede");
+        //http.authorizeRequests().antMatchers("/admin", "/admin/**").hasAnyAuthority("administrador", "gesto");
         http.authorizeRequests().anyRequest().permitAll();
     }
 

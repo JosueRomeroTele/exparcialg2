@@ -2,24 +2,34 @@ package com.example.exparcialg2.Entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table
-public class Producto {
+@Table(name = "producto")
+public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idproducto;
     private String codigoproducto;
     private String nombre;
     private BigDecimal precio;
-    private String stock;
+    private int stock;
+    @Column(name = "drescripcion")
     private String descripcion;
     private String foto;
     @ManyToMany(mappedBy = "listaProductos")
-    private
-    List<Usuario> listaUsuarios;
+    private List<Pedido> listapedidos;
+
+
+    public List<Pedido> getListapedidos() {
+        return listapedidos;
+    }
+
+    public void setListapedidos(List<Pedido> listapedidos) {
+        this.listapedidos = listapedidos;
+    }
 
     public int getIdproducto() {
         return idproducto;
@@ -53,11 +63,11 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
@@ -77,11 +87,7 @@ public class Producto {
         this.foto = foto;
     }
 
-    public List<Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
 
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
-    }
+
+
 }
