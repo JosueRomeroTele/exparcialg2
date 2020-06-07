@@ -14,7 +14,7 @@ public class Producto {
     private String codigoproducto;
     private String nombre;
     private BigDecimal precio;
-    private String stock;
+    private int stock;
     private String descripcion;
     private String foto;
     @ManyToMany(mappedBy = "listaProductos")
@@ -53,13 +53,7 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getStock() {
-        return stock;
-    }
 
-    public void setStock(String stock) {
-        this.stock = stock;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -83,5 +77,13 @@ public class Producto {
 
     public void setListaUsuarios(List<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }
