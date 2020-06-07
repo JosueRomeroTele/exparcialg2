@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("correo")
                 .defaultSuccessUrl("/redirectByRol", true);
 
-        http.logout().logoutSuccessUrl("/loginForm")
+        http.logout().logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
         ;
@@ -31,9 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //http.rememberMe().tokenValiditySeconds(172800).rememberMeParameter("recordar");
 
 
-        http.authorizeRequests().antMatchers( "/registrado", "/registrado/**").hasAuthority("Administrador");
+        http.authorizeRequests().antMatchers( "/producto", "/producto/**").hasAuthority("registrado");
         http.authorizeRequests().antMatchers("/gestor", "/gestor/**").hasAnyAuthority( "Gestor principal", "sede");
-        http.authorizeRequests().antMatchers("/administrador", "/administrador/**", "/comunidad", "/comunidad/**").hasAnyAuthority("Gestor principal", "sede");
+        http.authorizeRequests().antMatchers("/admin", "/admin/**").hasAnyAuthority("administrador", "gesto");
         http.authorizeRequests().anyRequest().permitAll();
     }
 

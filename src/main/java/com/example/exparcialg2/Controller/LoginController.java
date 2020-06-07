@@ -1,5 +1,6 @@
 package com.example.exparcialg2.Controller;
 
+
 import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ public class LoginController {
 
     @GetMapping("/loginForm")
     public String loginForm(){
-        return "login/login";
+        return "login/loginFormulario";
     }
+
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
     @GetMapping("/redirectByRol")
     public String redirectByRol(Authentication authentication, HttpSession session){
         String rol = "";
@@ -28,16 +31,17 @@ public class LoginController {
             break;
         }
         String username = authentication.getName();
-        Usuario usuario = usuarioRepository.findByCorreo(username);
-        session.setAttribute("usuario",usuario);
+        Usuario user = usuarioRepository.findByCorreo(username);
+
+        session.setAttribute("usuario",user);
 
         if(rol.equals("administrador")){
             return "redirect:/admin/lista";
         }else {
-            if (rol.equals("sede")){
-                return "redirect:/artesano";
+            if (rol.equals("gestor")){
+                return "redirect:/gestor";
             }else{
-                return "redirect:/categoria";
+                return "redirect:/invitado";
             }
         }
     }
