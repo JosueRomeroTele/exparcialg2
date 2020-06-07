@@ -22,6 +22,7 @@ import java.util.Optional;
 @RequestMapping("/producto")
 public class ProductoController {
     @Autowired
+            ///hahhaha
     ProductoRepository productoRepository;
     @GetMapping(value = {"", "/"})
     public String listaProductos(Model model) {
