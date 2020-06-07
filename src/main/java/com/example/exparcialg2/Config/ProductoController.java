@@ -93,4 +93,9 @@ public class ProductoController {
         model.addAttribute("produc",produc);
         return "producto/detalle";
     }
+
+    @GetMapping("/datos")
+    public String datosProductos(Model model){
+        return "producto/datos";
+    }
 }

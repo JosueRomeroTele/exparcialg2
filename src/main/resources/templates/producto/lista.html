@@ -10,6 +10,7 @@
 
 
 <a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/nuevo'}">Nuevo Producto</a>
+<a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/datos'}">Ver Estadisticas</a>
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <form method="post" th:action="@{/producto/buscar}">
         <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>

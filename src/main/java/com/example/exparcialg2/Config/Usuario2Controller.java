@@ -28,12 +28,12 @@ public class Usuario2Controller {
     @GetMapping(value = {"","/"})
     public String listaMisPedidos(Model model, HttpSession session){
 
-
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuario");
-
-        Optional<Usuario> usuarioConPedidos = usuarioRepository.findById(usuarioLogueado.getIdusuario());
         List<Pedido> listaPedidos= pedidoRepository.listaPedidos(usuarioLogueado.getIdusuario());
-        List<Producto>listaProductos=productoRepository
+        //for(Pedido p : listaPedidos){
+          //  p.getListaProductos();
+        //}
+        model.addAttribute("listaPedidos",listaPedidos);
         return "pedidos/lista";
     }
 
