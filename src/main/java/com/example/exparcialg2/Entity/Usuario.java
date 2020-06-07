@@ -32,5 +32,67 @@ public class Usuario {
 
     private Rol idRol;
 
+    public int getIdusuario() {
+        return idusuario;
+    }
 
+    public void setIdusuario(int idusuario) {
+        this.idusuario = idusuario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    public Rol getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(Rol idRol) {
+        this.idRol = idRol;
+    }
 }

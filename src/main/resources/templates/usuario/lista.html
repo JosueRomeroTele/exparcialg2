@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div class="container">
+
+    <h2>Lista De Gestores</h2>
+    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/usuario/nuevogestor'}">Nuevo Gestor</a>
+
+
+    <table class="table table-sm">
+        <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="usuario, info : ${listausuarios}">
+            <td th:text="${info.index + 1}"></td>
+            <td th:text="${usuario.nombre}"></td>
+            <td th:text="${usuario.apellido}"></td>
+            <td><a class="btn btn-primary"
+                   th:href="@{'/shipper/edit' + '?id=' + ${usuario.idusuario}}">Editar</a>
+            </td>
+            <td><a class="btn btn-danger"
+                   th:href="@{'/shipper/delete' + '?id=' + ${usuario.idusuario}}">Borrar</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
