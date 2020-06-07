@@ -33,7 +33,7 @@ public class Usuario2Controller {
 
         Optional<Usuario> usuarioConPedidos = usuarioRepository.findById(usuarioLogueado.getIdusuario());
         List<Pedido> listaPedidos= pedidoRepository.listaPedidos(usuarioLogueado.getIdusuario());
-        List<Producto>listaProductos=productoRepository
+        //List<Producto>listaProductos=productoRepository;
         return "pedidos/lista";
     }
 
