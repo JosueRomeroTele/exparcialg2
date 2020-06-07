@@ -36,7 +36,7 @@ public class LoginController {
         session.setAttribute("usuario",user);
 
         if(rol.equals("administrador")){
-            return "redirect:/admin/lista";
+            return "redirect:/producto";
         }else {
             if (rol.equals("gestor")){
                 return "redirect:/gestor";

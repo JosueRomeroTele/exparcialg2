@@ -1,25 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Productos</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css"  th:href="@{'/css/bootstrap.css'}" >
-</head>
+
+<head th:replace="fragment/cabecera.html :: titulo(tittle='Lista productos')">
+
 <body>
-    <div sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0">
-        <a class="nav-link" th:href="@{/loginForm}">Iniciar Sesión</a>
-    </div>
-    <div sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
-        <span th:text="|Bienvenido ${#authentication.name}|"></span>
-        <form th:action="@{/logout}" method="post">
-            <input class="btn btn-link" type="submit" value="(Cerrar Sesión)"/>
-        </form>
-    </div>
-    <a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/nuevo'}">Nuevo Producto</a>
+<div class="container">
+    <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
+</div>
+
+
+<a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/nuevo'}">Nuevo Producto</a>
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
     <form method="post" th:action="@{/producto/buscar}">
         <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>
@@ -34,8 +24,10 @@
                 <h3 th:text="${Producto.nombre}"></h3>
                 <h3 th:text="${Producto.precio}"></h3>
                 <h3 th:text="${Producto.stock}"></h3>
-                <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
-                <a class="btn btn-danger" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
+                <a class="btn btn-info" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
+                <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/editar' + '?id=' + ${Producto.idproducto}}">Editar</a>
+                <a class="btn btn-danger" th:height="20px" th:width="20px"  th:href="@{'/producto/borrar' + '?id=' + ${Producto.idproducto}}">Borrar</a>
+                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
             </div>
         </div>
         <h2>Aqui va la Paginacion</h2>

@@ -2,20 +2,26 @@ package com.example.exparcialg2.Entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
-public class Pedido {
+@Table(name = "pedido")
+public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idpedido;
     @Column(nullable = false)
-    private String fechacompra;
+    private Date fechacompra;
     @Column(nullable = false)
     private String codigo;
     private BigDecimal totalpago;
+    @ManyToOne
+    @JoinColumn(name = "usuario_idusuario")
+    private Usuario usuario;
+
     @ManyToMany
     @JoinTable(
             name = "productoHasPedido",
@@ -23,6 +29,21 @@ public class Pedido {
             inverseJoinColumns = @JoinColumn(name = "idproducto"))
     private List<Producto> listaProductos;
 
+    public Date getFechacompra() {
+        return fechacompra;
+    }
+
+    public void setFechacompra(Date fechacompra) {
+        this.fechacompra = fechacompra;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public int getIdpedido() {
         return idpedido;
@@ -32,13 +53,7 @@ public class Pedido {
         this.idpedido = idpedido;
     }
 
-    public String getFechacompra() {
-        return fechacompra;
-    }
 
-    public void setFechacompra(String fechacompra) {
-        this.fechacompra = fechacompra;
-    }
 
     public String getCodigo() {
         return codigo;
