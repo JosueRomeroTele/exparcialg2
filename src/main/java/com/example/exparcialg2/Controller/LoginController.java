@@ -6,10 +6,15 @@ import com.example.exparcialg2.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 @Controller
 public class LoginController {
@@ -47,6 +52,25 @@ public class LoginController {
     }
 
 
+    @GetMapping("/resetPassword")
+    public String paginaResetPas(){
+        return "login/loginContrasena";
+    }
+
+
+
+    @PostMapping("/resetContra")
+    public String newContra(@RequestParam("correo") String correo){
+
+        SecureRandom secureRandom = new SecureRandom();
+        String contra = new BigInteger(40, secureRandom).toString(32);
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        contra = bCryptPasswordEncoder.encode(contra);
+
+
+        return "";
+    }
 
 
 }
