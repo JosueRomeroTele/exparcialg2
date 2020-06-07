@@ -15,6 +15,7 @@ public class Usuario {
     private String dni;
     private String correo;
     private String contrasena;
+    private boolean enable;
     @ManyToOne
     @Column(name = "Rol_idRol")
     private Rol idRol;
