@@ -22,12 +22,14 @@
     <br>
     <div th:height="1200px" th:width="800px">
         <div th:each="Producto,pro:${listaProductos}" th:height="200" th:width="600px">
-            <div th:align="left" th:height="100px" th:width="100px">
-                <h4>Aqui va la foto xD</h4>
-            </div>
-}
-            
-            <div th:align="center" th:height="100px" th:width="450px">
+
+            <div class="container-datos">
+
+                <div th:align="left" th:height="100px" th:width="100px" >
+                    <h4>Aqui va la foto xD</h4>
+                </div>
+
+            <div class="texto-producto" th:align="center" th:height="100px" th:width="450px">
                 <h3 th:text="${Producto.codigoproducto}"></h3>
                 <h3 th:text="${Producto.nombre}"></h3>
                 <h3 th:text="${Producto.precio}"></h3>
@@ -39,6 +41,8 @@
                     <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/editar' + '?id=' + ${Producto.idproducto}}">Editar</a>
                     <a class="btn btn-danger" th:height="20px" th:width="20px"  th:href="@{'/producto/borrar' + '?id=' + ${Producto.idproducto}}">Borrar</a>
                 </li>
+
+            </div>
 
             </div>
         </div>
