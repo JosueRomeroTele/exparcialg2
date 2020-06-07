@@ -9,7 +9,7 @@
     <form method="post" th:action="@{'/usuario/registrargestor'}" th:object="${usuario}">
         <input type="hidden" th:field="*{idusuario}" />
         <input type="hidden" th:field="*{enable==1}" />
-
+        <input type="hidden" th:field="*{contrasena}" />
         <div class="form-group">
             <label for="nombre">Nombre </label>
             <input type="text" class="form-control" th:field="*{nombre}">
@@ -26,6 +26,7 @@
             <label for="correo">Correo</label>
             <input type="text" class="form-control" th:field="*{correo}">
         </div>
+
 
 
         <a th:href="@{'/usuario/listargestores'}" class="btn btn-danger">Cancelar</a>
