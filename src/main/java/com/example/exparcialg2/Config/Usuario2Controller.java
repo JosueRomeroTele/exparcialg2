@@ -33,13 +33,13 @@ public class Usuario2Controller {
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuario");
         List<Pedido> listaPedidos= pedidoRepository.listaPedidos(usuarioLogueado.getIdusuario());
 
-
         model.addAttribute("listaPedidos",listaPedidos);
 
         return "pedidos/lista";
     }
     @PostMapping("/buscar")
     public String listabuscada(){
+
         return "pedidos/lista";
     }
 
