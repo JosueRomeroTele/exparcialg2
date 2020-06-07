@@ -32,23 +32,40 @@ public class Usuario2Controller {
 
         Usuario usuarioLogueado = (Usuario) session.getAttribute("usuario");
         List<Pedido> listaPedidos= pedidoRepository.listaPedidos(usuarioLogueado.getIdusuario());
-
-
-        //ist<Producto> listaProductosTotal= new ArrayList<Producto>();
-        //for(Pedido pe : listaPedidos){
-          //  for(Producto pro:pe.getListaProductos()){
-            //    listaProductosTotal.add(pro);
-            //}
-        //}
-        //model.addAttribute("listaProductos",listaProductosTotal);
         model.addAttribute("listaPedidos",listaPedidos);
         return "pedidos/lista";
     }
     @PostMapping("/buscar")
     public String listabuscada(){
+
         return "pedidos/lista";
     }
+    @GetMapping("/tienda")
+    public String tienda(Model model, HttpSession session){
 
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        
+        List<Juego> juegos = juegoRepository.listaJuegosQueNoTieneUsuario(u.getIdusuario());
+
+        List<Juego> juegosEnSession = (ArrayList<Juego>) session.getAttribute("juegosCarritoDeCompras");
+
+        List<Juego> juegosEnTienda = new ArrayList<>();
+
+        for(Juego j : juegos){
+            boolean juegoExisteSesion = false;
+            for(Juego js : juegosEnSession){
+                if(j.getIdjuego() == js.getIdjuego()){
+                    juegoExisteSesion = true;
+                    break;
+                }
+            }
+            if(!juegoExisteSesion){
+                juegosEnTienda.add(j);
+            }
+        }
+        model.addAttribute("listaJuegos",juegosEnTienda);
+        return "user/tienda";
+    }
 
 
 
