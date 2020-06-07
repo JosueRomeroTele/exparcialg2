@@ -21,10 +21,6 @@
             <a class="navbar-brand" th:href="@{/producto}">CHABELITA</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/producto}">PRODUCTOS</a>
-                </li>
-
                 <li sec:authorize="hasAnyAuthority('registrado')" class="nav-item">
                     <a class="nav-link" th:href="@{/pedidos}">PEDIDO</a>
                 </li>

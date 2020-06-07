@@ -24,9 +24,9 @@ public class Pedido implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "producto_has_pedido",
-            joinColumns = @JoinColumn(name = "idpedido"),
-            inverseJoinColumns = @JoinColumn(name = "idproducto"))
+            name = "pedido_has_producto",
+            joinColumns = @JoinColumn(name = "pedido_idpedido"),
+            inverseJoinColumns = @JoinColumn(name = "producto_idproducto"))
     private List<Producto> listaProductos;
 
     public Date getFechacompra() {

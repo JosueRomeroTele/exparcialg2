@@ -11,10 +11,11 @@
     <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>
 </form>
 <div th:height="1200px" th:width="800px">
-    <div th:each="Pedidos,p:${listaPedidos}" th:height="200" th:width="600px">
-        <h3 th:text="${Pedidos.codigo}"></h3>
-        <div th:each="producto, pro :${Pedidos.getListaProductos()}" th:align="left" th:height="150px" th:width="450px">
-            <h3 th:text="${producto.nombre}"></h3>
+
+    <div th:each="Pedido,p:${listaPedidos}" th:height="200" th:width="600px">
+        <span th:text="|Pedido ${Pedido.codigo}|"></span>
+        <div th:each="Producto, pro :${Pedido.getListaProductos()}" th:align="left" th:height="150px" th:width="450px">
+            <h3 th:text="${Producto.nombre} "></h3>
         </div>
     </div>
     <h2>Aqui va la Paginacion</h2>
