@@ -34,7 +34,7 @@ public class UsuarioController {
         if(bindingResult.hasErrors()){
             return "usuario/form";
         }
-        
+
         return "listaproductoss/modificar";
     }
 }
