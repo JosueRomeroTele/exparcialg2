@@ -39,7 +39,6 @@ public class Usuario2Controller {
     }
     @PostMapping("/buscar")
     public String listabuscada(){
-
         return "pedidos/lista";
     }
 

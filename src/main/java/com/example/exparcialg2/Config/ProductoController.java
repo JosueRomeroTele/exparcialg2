@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -175,29 +176,28 @@ public class ProductoController {
 
     @GetMapping("/carrito")
     public String anadirProductoCarrito(@RequestParam("id") int id, HttpSession session){
-        ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("juegosCarritoDeCompras");
+        ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
         Optional<Producto> optproducto = productoRepository.findById(id);
-        int b=0;
+        Producto productoaux=optproducto.get();
+        productoCarrito.add(productoaux);
+        /*int b=0;
         int a=0;
-
         for(Producto p : productoCarrito){
             if(p.getCantidad()==4){
                 b=1;
                 break;
             }
-            if(optproducto.get().getNombre().equals(p.getNombre()) && p.getCantidad()<=3){
+            if(productoaux.getNombre().equals(p.getNombre()) && p.getCantidad()<=3){
                 a=id;
                 p.setCantidad(p.getCantidad()+1);
                 break;
             }
         }
-
-        if(a==0){
-            optproducto.get().setCantidad(1);
-            productoCarrito.add(optproducto.get());
-        }
-
-        session.setAttribute("juegosCarritoDeCompras",productoCarrito);
+        if(a==0 && b==0){
+            productoaux.setCantidad(1);
+            productoCarrito.add(productoaux);
+        }*/
+        session.setAttribute("CarritoDeCompras",productoCarrito);
         return "redirect:/producto";
     }
 }
