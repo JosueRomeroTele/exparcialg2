@@ -2,6 +2,9 @@ package com.example.exparcialg2.Entity;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,13 +14,19 @@ import java.util.List;
 public class Producto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int idproducto;
     private String codigoproducto;
+    @Size(max = 40)
     private String nombre;
+    @Digits(integer = 4, fraction = 2)
     private BigDecimal precio;
+    @Positive
+    @Digits(integer = 10, fraction = 0)
     private int stock;
 
     @Column(name = "drescripcion")
+    @Size(max=255)
     private String descripcion;
     private String foto;
     @ManyToMany(mappedBy = "listaProductos")
