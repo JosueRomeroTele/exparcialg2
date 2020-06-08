@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:margin="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragment/cabecera.html :: titulo(tittle='Lista productos')">
+
+<body>
+<div class="container">
+    <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
+
+<div sec:authorize="hasAnyAuthority('gestor')">
+<a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/nuevo'}">Nuevo Producto</a>
+<a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/datos'}">Ver Estadisticas</a>
+</div>
+
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+
+    <div th:text="'El total que posee nuestra tienda es de ' + ${totalItems}"></div>
+    <form method="post" th:action="@{/producto/buscar}" style="width: 50%">
+        <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>
+        <button class="btn btn-info" type="submit">Buscar</button>
+        <a class="btn btn-outline-danger" th:href="@{/producto}">limpiar</a>
+    </form>
+    <br>
+    <br>
+    <div th:height="1200px" th:width="800px">
+
+        <div th:if="${msg1 != null}" th:text="${msg1}" class="alert alert-danger" role="alert"></div>
+
+        <div th:each="Producto,pro:${listaProductos}" th:height="200" th:width="600px">
+
+            <div class="container-datos">
+
+                <div th:align="left" th:height="100px" th:width="100px" >
+                    <img height="135px" width="135px" th:src="@{|imagenesexam/${Producto.foto}|}"></img>
+
+                </div>
+
+            <div class="texto-producto" th:align="center" th:height="100px" th:width="450px">
+                <h3 th:text="${Producto.codigoproducto}"></h3>
+                <h3 th:text="${Producto.nombre}"></h3>
+                <h3 th:text="${Producto.precio}"></h3>
+                <h3 th:text="${Producto.stock}"></h3>
+                <a class="btn btn-info" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
+                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'+ '?id=' + ${Producto.idproducto}}">Agregar Carrito</a>
+                <br>
+                <br>
+                <div sec:authorize="hasAnyAuthority('gestor')" th:marginheight="10px" >
+                    <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/editar' + '?id=' + ${Producto.idproducto}}">Editar</a>
+                    <a class="btn btn-danger" th:height="20px" th:width="20px"  th:href="@{'/producto/borrar' + '?id=' + ${Producto.idproducto}}">Borrar</a>
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+
+                <ul th:if="${last != 1}" class="pagination justify-content-center">
+
+                    <li class ="page-item" th:classappend="${prev == 0 ? 'disabled': '' }">
+                        <a class="page-link" th:if="${busqueda!=null}" th:href="@{'/producto/buscar' + '?page=' + ${prev}} "> Anterior </a>
+                        <a class="page-link" th:unless="${busqueda!=null}" th:href="@{'/producto' + '?page=' + ${prev}} "> Anterior </a>
+
+                    <li class ="page-item" th:each="page:${pages}" th:classappend="${current == page ? 'active' : ''}" >
+                    <a class="page-link" th:if="${busqueda!=null}" th:href="@{'/producto/buscar' + '?page=' + ${page}} " th:text="${page}"></a>
+                    <a class="page-link" th:unless="${busqueda!=null}" th:href="@{'/producto' + '?page=' + ${page}} " th:text="${page}"></a>
+
+                </li>
+
+                    <li class ="page-item" th:classappend="${current == last ? 'disabled': '' }">
+                        <a class="page-link" th:if="${busqueda!=null}" th:href="@{'/producto/buscar' + '?page=' + ${next}} "> Siguiente </a>
+                        <a class="page-link" th:unless="${busqueda!=null}" th:href="@{'/producto' + '?page=' + ${next}} "> siguiente </a>
+
+
+
+                </ul>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,10 +1,9 @@
 package com.example.exparcialg2.Config;
 
-<<<<<<< HEAD
+
 import com.example.exparcialg2.Class.InvertirArray;
-=======
+
 import com.example.exparcialg2.Dtos.ProductoxCantidad;
->>>>>>> 51aab98fcbc4935efb97cbc63d8246898acc0d48
 import com.example.exparcialg2.Dtos.StorageService;
 import com.example.exparcialg2.Entity.Pedido;
 import com.example.exparcialg2.Entity.Producto;
@@ -40,6 +39,8 @@ import java.util.stream.IntStream;
 @Controller
 @RequestMapping("/producto")
 public class ProductoController {
+    int num=0;
+
     @Autowired
     ProductoRepository productoRepository;
     @Autowired
@@ -225,7 +226,7 @@ public class ProductoController {
         pedido.setListaProductos(productoCarrito);
         Date fecha = new Date();
         pedido.setFechacompra(fecha);
-        String codigoped = "PE" + fecha.getDay() + fecha.getMonth() + fecha.getYear() + productoCarrito.size() + 1;
+        String codigoped = "PE" + String.valueOf(fecha.getDay()) + fecha.getMonth() + fecha.getYear() + productoCarrito.size() + 1;
         pedido.setCodigo(codigoped);
         //validacion de tarjeta de credito
         if (verificarTarjeta(tarjeta)) {
@@ -240,18 +241,19 @@ public class ProductoController {
 
     @GetMapping("/carrito")
     public String anadirProductoCarrito(@RequestParam("id") int id, HttpSession session,RedirectAttributes attr){
+
         ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
         Optional<Producto> optproducto = productoRepository.findById(id);
         Producto productoaux=optproducto.get();
-        int num=0;
+
         for(Producto p:productoCarrito){
             if(p.getNombre().equals(productoaux.getNombre())){
                 num++;
             }
         }
-        if(num<=3){productoCarrito.add(productoaux);}
+        if(num<=4){productoCarrito.add(productoaux);}
         else{
-            attr.addFlashAttribute("msg1", "Ya no puedes agregar nada mas CTMAREEEEEEE");
+            attr.addFlashAttribute("msg1", "MAXIMO POR PRODUCTO ES 4 ");
 
         }
 

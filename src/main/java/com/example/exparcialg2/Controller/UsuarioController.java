@@ -3,6 +3,7 @@ package com.example.exparcialg2.Controller;
 import com.example.exparcialg2.Entity.Rol;
 import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.UsuarioRepository;
+import com.example.exparcialg2.Service.SendMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,6 +23,9 @@ import java.util.Optional;
 public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    @Autowired
+    SendMailService sendMailService;
 
     @GetMapping("/listargestores")
     public String listarUsuarios(Model model) {
@@ -51,8 +55,10 @@ public class UsuarioController {
         return "listaproductoss/modificar";
 
          */
+
         usuarioRepository.crearusuariosp(nombre, apellido, dni, correo, contrahash, rolguardado, ena);
-        return "login/loginFormulario1";
+
+            return "login/loginFormulario1";
     }
 /*
     public void crearempleado(String nombre, String apellido, String dni, String correo, String contrasena, int rol, boolean ena) {
