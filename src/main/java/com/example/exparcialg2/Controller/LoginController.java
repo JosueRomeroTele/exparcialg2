@@ -47,7 +47,7 @@ public class LoginController {
         session.setAttribute("usuario",user);
 
         if(rol.equals("administrador")){
-            return "redirect:/producto";
+            return "redirect:/usuario/listargestores";
         }else {
             if (rol.equals("registrado")){
                 return "redirect:/producto";

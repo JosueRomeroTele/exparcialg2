@@ -1,5 +1,6 @@
 package com.example.exparcialg2.Controller;
 
+import com.example.exparcialg2.Entity.Rol;
 import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,8 @@ public class UsuarioController {
         return "listaproductoss/modificar";
 
          */
-        usuarioRepository.crearusuariosp(nombre, apellido, dni, correo, contrasena, rolguardado, ena);
-        return "listaproductoss/modificar";
+        usuarioRepository.crearusuariosp(nombre, apellido, dni, correo, contrahash, rolguardado, ena);
+        return "login/loginFormulario1";
     }
 /*
     public void crearempleado(String nombre, String apellido, String dni, String correo, String contrasena, int rol, boolean ena) {
@@ -62,7 +63,7 @@ public class UsuarioController {
  */
 
     @GetMapping("/nuevogestor")
-    public String nuevogestor() {
+    public String nuevogestor(@ModelAttribute("usuario") Usuario usuario) {
         return "usuario/formgestor";
     }
 
@@ -74,10 +75,18 @@ public class UsuarioController {
         if(usuario.getIdusuario()==0) {
             String contraStr = gencontrasena();
             usuario.setContrasena(encriptar(contraStr));
+        }else{
+            Optional<Usuario> usuario1 = usuarioRepository.findById(usuario.getIdusuario());
+            usuario.setContrasena(usuario1.get().getContrasena());
+
         }
+        Rol rol = new Rol();
+        rol.setIdrol(6);
+        usuario.setIdRol(rol);
+        usuario.setEnable(true);
         //falta enviar contraseña al correo
         usuarioRepository.save(usuario);
-        return "usuario/lista";
+        return "redirect:/usuario/listargestores";
     }
     @GetMapping("/editargestor")
     public String editargestor(@ModelAttribute("usuario") Usuario usuario, Model model, @RequestParam("id") int id) {
@@ -87,7 +96,7 @@ public class UsuarioController {
             model.addAttribute("usuario", usuario);
             return "usuario/formgestor";
         } else {
-            return "redirect: /usuario/listagestores";
+            return "redirect:/usuario/listargestores";
         }
     }
     @GetMapping("/borrargestor")
@@ -96,7 +105,7 @@ public class UsuarioController {
         if(optionalUsuario.isPresent()){
             usuarioRepository.deleteById(id);
         }
-        return "redirect: /usuario/listagestores";
+        return "redirect:/usuario/listargestores";
     }
 
     //funcion random

@@ -17,7 +17,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
 
     Usuario findByIdRol(int idrol);
 
-    @Query(value = "select u.* from usuario u where u.Rol_idRol = 2", nativeQuery = true)
+    @Query(value = "select u.* from usuario u where u.Rol_idRol = 6", nativeQuery = true)
     List<Usuario> listargestores();
 
     @Modifying
