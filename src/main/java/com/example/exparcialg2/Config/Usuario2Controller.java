@@ -38,14 +38,11 @@ public class Usuario2Controller {
 
         return "pedidos/lista";
     }
+
     @PostMapping("/buscar")
-<<<<<<< HEAD
     public String buscarpedido(@RequestParam("searchField") String buscar,Model model){
 
         model.addAttribute("listaPedidos", pedidoRepository.listaPedidosBuscar(buscar));
-=======
-    public String listabuscada(){
->>>>>>> 138db5083af0023325d53b09f91cf6847681c96c
         return "pedidos/lista";
 
     }
