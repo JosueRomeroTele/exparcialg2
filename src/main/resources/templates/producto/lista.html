@@ -24,7 +24,9 @@
     <br>
     <br>
     <div th:height="1200px" th:width="800px">
-        <a th:href="@{'/producto/misproductos'}" th:text="|carrito( ${session.CarritoDeCompras.size()} )|"></a>
+        <a th:if="${session.CarritoDeCompras.size()==0}" th:href="@{'/producto/misproductos'}" th:text="|carrito( ${session.CarritoDeCompras.size()} )|"></a>
+        <a th:if="${session.CarritoDeCompras.size()==0}" th:href="@{'/producto/misproductos'}" th:text="carrito( 0 )"></a>
+
         <div th:each="Producto,pro:${listaProductos}" th:height="200" th:width="600px">
 
             <div class="container-datos">

@@ -104,4 +104,5 @@ public class Producto implements Serializable {
         this.foto = foto;
     }
 
+
 }

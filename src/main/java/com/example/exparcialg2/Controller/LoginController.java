@@ -1,6 +1,7 @@
 package com.example.exparcialg2.Controller;
 
 
+import com.example.exparcialg2.Entity.Producto;
 import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.UsuarioRepository;
 import com.example.exparcialg2.Service.SendMailService;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -43,9 +46,10 @@ public class LoginController {
         }
         String username = authentication.getName();
         Usuario user = usuarioRepository.findByCorreo(username);
+        List<Producto> carritoConProducto = new ArrayList<>();
 
         session.setAttribute("usuario",user);
-
+        session.setAttribute("CarritoDeCompras",carritoConProducto);
         if(rol.equals("administrador")){
             return "redirect:/usuario/listargestores";
         }else {

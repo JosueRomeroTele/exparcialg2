@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/cabecera.html :: titulo(tittle='Checkout')">
+
+
+<body>
+<h3>Checkout</h3>
+<form th:if="${session.CarritoDeCompras.size() >0}" class="form-horizontal" th:action="@{/producto/comprar}"
+      method="post">
+    <divt th:text="${total}">
+
+    </divt>
+    <div class="form-group">
+        <label for="tarejta">Tarjeta</label>
+        <input type="text" class="form-control" name="tarjeta" id="tarejta">
+    </div>
+    <button type="submit" class="btn btn-primary">Pagar</button>
+</form>
+
+</body>
+</html>
