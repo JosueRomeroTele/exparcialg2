@@ -12,8 +12,11 @@
 <body >
 <div class="wrap-login100">
     <form class="login100-form" th:action="@{/processlogin}" method="post">
+
+
 	    <span class="login100-form-title p-b-43" >
 						BODEGA CHABELITA
+
         </span>
         <br>
         <div align="center">
@@ -26,14 +29,24 @@
         <div class="container">
             <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping" name="password">
         </div>
+
         <br>
         <div align="center">
             <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
-            <a th:href="@{/usuario/nuevousuario}"> Registrarse</a>
+
+
+            <a th:href="@{/usuario/formusuario}"> Registrarse</a>
+        </div>
+        <div>
+            <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
         </div>
         <br>
         <input type="submit" class="btn btn-info btn-block" value="Iniciar Sesion">
     </form >
+    <div>
+        <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
+    </div>
+    <a th:href="@{/usuario/formusuario}">Registrase form</a>
 
 </div>
 </body>
