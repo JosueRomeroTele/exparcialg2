@@ -1,5 +1,6 @@
 package com.example.exparcialg2.Config;
 
+import com.example.exparcialg2.Dtos.ProductoxCantidad;
 import com.example.exparcialg2.Dtos.StorageService;
 import com.example.exparcialg2.Entity.Pedido;
 import com.example.exparcialg2.Entity.Producto;
@@ -9,6 +10,7 @@ import com.example.exparcialg2.Repository.ProductoRepository;
 import com.example.exparcialg2.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -179,7 +181,15 @@ public class ProductoController {
         ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
         Optional<Producto> optproducto = productoRepository.findById(id);
         Producto productoaux=optproducto.get();
-        productoCarrito.add(productoaux);
+        int num=0;
+        for(Producto p:productoCarrito){
+            if(p.getNombre().equals(productoaux.getNombre())){
+                num++;
+            }
+        }
+        if(num<=3){productoCarrito.add(productoaux);}
+
+
         /*int b=0;
         int a=0;
         for(Producto p : productoCarrito){
@@ -203,6 +213,14 @@ public class ProductoController {
     @GetMapping("/misproductos")
     public String miListaProductos(Model model,HttpSession session){
         ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
+        List<Producto> listaTotal=productoRepository.findAll();
+        List<ProductoxCantidad>lista2= new ArrayList<ProductoxCantidad>();
+        ProductoxCantidad pc=new ProductoxCantidad();
+        /*for(Producto p:productoCarrito){
+            for(Producto pro :listaTotal){
+                if()
+            }
+        }*/
         model.addAttribute("milista",productoCarrito);
         return "producto/milista";
     }
