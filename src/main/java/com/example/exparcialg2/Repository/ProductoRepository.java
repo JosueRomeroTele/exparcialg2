@@ -13,10 +13,10 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto,Integer> {
 
-    @Query(value = "SELECT * FROM cadena where cadena.razon_social  like '%?1%' " +
-            "or  cadena.nombre_comercial like '%?1%'",
-           countQuery = "sELECT count(*) FROM producto where producto.nombre like '%?1%'" +
-                   " or producto.codigoproducto like '%?1%'",nativeQuery = true)
+    @Query(value = "SELECT * FROM producto where producto.nombre like %?1% " +
+            "or  producto.codigoproducto like %?1%",
+           countQuery = "sELECT count(*) FROM producto where producto.nombre like %?1%" +
+                   " or producto.codigoproducto like %?1%",nativeQuery = true)
     Page<Producto> buscarProductos(String nombre, Pageable pageable);
 
 }

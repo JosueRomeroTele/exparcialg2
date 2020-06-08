@@ -12,7 +12,10 @@
 <body >
 <div class="wrap-login100">
     <form class="login100-form" th:action="@{'/resetContra'}" method="post">
+
 	   <div>RECUPERAR CONTRASEÑA</div>
+        <br>
+        <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
         <br>
         <div class="container">
             <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping" name="correo">
