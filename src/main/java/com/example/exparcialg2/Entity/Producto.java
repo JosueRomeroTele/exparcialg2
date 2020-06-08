@@ -22,7 +22,7 @@ public class Producto implements Serializable {
     private String foto;
     @ManyToMany(mappedBy = "listaProductos")
     private List<Pedido> listapedidos;
-    private int cantidad;
+
 
     public List<Pedido> getListapedidos() {
         return listapedidos;
@@ -91,11 +91,5 @@ public class Producto implements Serializable {
     }
 
 
-    public int getCantidad() {
-        return cantidad;
-    }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 }

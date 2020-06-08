@@ -321,5 +321,21 @@ public class ProductoController {
         verificacion = (10 - (total % 10)) % 10;
         return String.valueOf(verificacion).equals(digitoverificador);
     }
+    //calcular total facturado de la bodega xd
+    public BigDecimal calcularfacturado(){
+        BigDecimal totalfac = new BigDecimal(0);
+        for (Pedido p: pedidoRepository.listapreciototales()){
+            totalfac = totalfac.add(p.getTotalpago());
+        }
+        return totalfac;
+    }
+    //calcular gasto maximo
+    public BigDecimal gastomax(){
+        BigDecimal gastmax = new BigDecimal(0);
+
+        return gastmax;
+    }
+
+
 
 }
