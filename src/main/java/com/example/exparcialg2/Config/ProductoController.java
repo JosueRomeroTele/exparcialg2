@@ -200,4 +200,10 @@ public class ProductoController {
         session.setAttribute("CarritoDeCompras",productoCarrito);
         return "redirect:/producto";
     }
+    @GetMapping("/misproductos")
+    public String miListaProductos(Model model,HttpSession session){
+        ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
+        model.addAttribute("milista",productoCarrito);
+        return "producto/milista";
+    }
 }

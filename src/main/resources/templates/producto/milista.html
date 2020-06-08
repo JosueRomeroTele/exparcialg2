@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragment/cabecera.html :: titulo(tittle='Lista productos')">
+
+<body>
+<div class="container">
+    <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
+
+    <li sec:authorize="hasAnyAuthority('gestor')">
+        <a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/nuevo'}">Nuevo Producto</a>
+        <a class="btn btn-primary mt-4 mb-4" th:href="@{'/producto/datos'}">Ver Estadisticas</a>
+    </li>
+    <div th:height="1200px" th:width="800px">
+        <a th:href="@{'/producto/misproductos'}" th:text="${session.CarritoDeCompras.size()}"></a>
+        <h2>Carrito De Mierda!!!</h2>
+        <div th:each="Producto,pro:${milista}" th:height="200" th:width="600px">
+
+            <div class="container-datos">
+
+                <div th:align="left" th:height="100px" th:width="100px" >
+                    <img height="135px" width="135px" th:src="@{|imagenesexam/${Producto.foto}|}"></img>
+
+                </div>
+
+                <div class="texto-producto" th:align="center" th:height="100px" th:width="450px">
+                    <h3 th:text="|Codigo del Producto ${Producto.codigoproducto}|"></h3>
+                    <h3 th:text="|Nombre del Producto ${Producto.nombre}|"></h3>
+                    <h3 th:text="|Precio ${Producto.precio}|"></h3>
+                    <h2>Cantidad : 1</h2>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>
