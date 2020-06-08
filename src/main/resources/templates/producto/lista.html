@@ -38,7 +38,7 @@
                 <h3 th:text="${Producto.precio}"></h3>
                 <h3 th:text="${Producto.stock}"></h3>
                 <a class="btn btn-info" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
-                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
+                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'+ '?id=' + ${Producto.idproducto}}">Agregar Carrito</a>
                 <br>
                 <li sec:authorize="hasAnyAuthority('gestor')">
                     <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/editar' + '?id=' + ${Producto.idproducto}}">Editar</a>
