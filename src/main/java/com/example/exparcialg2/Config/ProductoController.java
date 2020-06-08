@@ -120,6 +120,7 @@ public class ProductoController {
             for(Producto producto:pedido.getListaProductos()){
                 if(producto.getIdproducto()==id){
                     borrar=false;
+                    break;
                 }
             }
         }
