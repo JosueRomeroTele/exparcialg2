@@ -32,6 +32,9 @@ public class ProductoController {
     @Autowired
     ProductoService productoService;
 
+    @Autowired
+    private StorageService storageService;
+
     @GetMapping(value = {"", "/"})
     public String listaProductos(Model model,@RequestParam Map<String, Object> params) {
 
@@ -65,7 +68,7 @@ public class ProductoController {
     @PostMapping("/guardar")
     public String guardarProducto(@RequestParam("archivo")MultipartFile file, @ModelAttribute("producto") @Valid Producto producto, BindingResult bindingResult,
                                   RedirectAttributes attr, Model model) {
-        StorageService storageService = null;
+        
         HashMap<String,String> map = storageService.store(file);
         if(map.get("estado").equals("exito")){
             producto.setFoto(map.get("fileName"));
