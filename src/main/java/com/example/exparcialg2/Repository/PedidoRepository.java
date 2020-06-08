@@ -12,4 +12,9 @@ public interface PedidoRepository extends JpaRepository<Pedido,Integer> {
     @Query(value = "select * from pedido where pedido.Usuario_idUsuario = ?1",
             nativeQuery = true)
     List<Pedido> listaPedidos(int id);
+
+    @Query(value = "SELECT * FROM pedido where codigopedido like %?1% ",
+            nativeQuery = true)
+    List<Pedido> listaPedidosBuscar(String nombre);
+
 }

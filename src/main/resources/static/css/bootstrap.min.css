@@ -7,4 +7,6 @@
 .container-datos{text-align: center; margin-bottom: 10px; }
 .container-datos div{display: inline-block;vertical-align: top; margin: 0 20px;}
 .texto-producto{text-align: left}
+.texto-pedidos{margin: 10px 10px}
+.container-pedido{margin: 20px 40px}
 /*# sourceMappingURL=bootstrap.min.css.map */

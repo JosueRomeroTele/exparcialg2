@@ -5,10 +5,11 @@
 
 <body>
 
-<div class="container-datos">
+<div class="container">
+
         <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
 
-
+            <div class="container-datos">
                 <h2 th:text="${produc.nombre}" ></h2>
                 <div th:align="left" th:height="100px" th:width="100px" >
                     <img height="160px" width="160px" th:src="@{|imagenesexam/${produc.foto}|}"></img>
@@ -22,6 +23,8 @@
                     <a class="btn btn-primary" th:height="20px" th:width="20px"  th:href="@{'/producto/'}">Regresar</a>
                     <a class="btn btn-danger" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
                 </div>
+
+            </div>
 
 </div>
 </body>

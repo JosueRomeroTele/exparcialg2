@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragment/cabecera.html :: titulo(tittle='Lista productos')">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
@@ -8,6 +9,15 @@
     <link rel="stylesheet" type="text/css"  th:href="@{'/css/bootstrap.css'}" >
 <body>
 <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div sec:authorize="isAuthenticated()" class="form-inline my-2 my-lg-0">
+        <span th:text="|Bienvenido ${session.usuario.nombre} ${session.usuario.apellido}|"></span>
+        <form th:action="@{/logout}" method="post">
+            <input class="btn btn-link" type="submit" value="(Cerrar Sesión)"/>
+        </form>
+    </div>
+    </nav>
+
 
     <h2>Lista De Gestores</h2>
     <a class="btn btn-primary mt-4 mb-4" th:href="@{'/usuario/nuevogestor'}">Nuevo Gestor</a>

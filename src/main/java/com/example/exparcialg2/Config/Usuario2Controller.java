@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -38,12 +39,11 @@ public class Usuario2Controller {
         return "pedidos/lista";
     }
     @PostMapping("/buscar")
-    public String listabuscada(){
+    public String buscarpedido(@RequestParam("searchField") String buscar,Model model){
 
+        model.addAttribute("listaPedidos", pedidoRepository.listaPedidosBuscar(buscar));
         return "pedidos/lista";
+
     }
-
-
-
 
 }

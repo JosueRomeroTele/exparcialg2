@@ -3,7 +3,7 @@
 <head th:replace="fragment/cabecera.html :: titulo(tittle='Editar Producto')">
 <body>
 <div class="container">
-
+    <nav th:replace="fragment/cabecera.html :: cabecera"></nav>
     <h2 >Editar Producto</h2>
     <hr/>
     <form method="post" th:action="@{'/producto/guardar'}" th:object="${producto}">
