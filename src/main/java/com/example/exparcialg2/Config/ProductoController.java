@@ -3,8 +3,10 @@ package com.example.exparcialg2.Config;
 import com.example.exparcialg2.Dtos.StorageService;
 import com.example.exparcialg2.Entity.Pedido;
 import com.example.exparcialg2.Entity.Producto;
+import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.PedidoRepository;
 import com.example.exparcialg2.Repository.ProductoRepository;
+import com.example.exparcialg2.Repository.UsuarioRepository;
 import com.example.exparcialg2.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +41,8 @@ public class ProductoController {
 
     @Autowired
     PedidoRepository pedidoRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
 
     @GetMapping(value = {"", "/"})
@@ -171,8 +175,27 @@ public class ProductoController {
         return "producto/datos";
     }
 
+    @GetMapping("/comprar")
     public String precompra(HttpSession session){
-        return "";
+        return "/pedidos/comprar";
+    }
+    @PostMapping("/comprar")
+    public String compra(HttpSession session){
+        Pedido pedido = new Pedido();
+        ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("juegosCarritoDeCompras");
+        Usuario usuariolog = (Usuario) session.getAttribute("usuario");
+        Optional<Usuario> optionalUsuario = usuarioRepository.findById(usuariolog.getIdusuario());
+        Usuario usuarioconped = optionalUsuario.get();
+        List<Pedido> pedidosusuario = pedidoRepository.listaPedidos(usuarioconped.getIdusuario());
+        //guardado de pedido
+        //guardar  precio
+        int subtotal = 0;
+        for(Producto p : productoCarrito){
+            subtotal = p;
+        }
+        pedido.setListaProductos(productoCarrito);
+        Pedido pedidosession = (Pedido) session.getAttribute("pedido");
+        return "redirect:/pedido/listapedidos";
     }
 
 }
