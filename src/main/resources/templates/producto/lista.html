@@ -24,6 +24,7 @@
     <br>
     <br>
     <div th:height="1200px" th:width="800px">
+        <a th:href="@{'/producto/misproductos'}" th:text="${session.CarritoDeCompras.size()}"></a>
         <div th:each="Producto,pro:${listaProductos}" th:height="200" th:width="600px">
 
             <div class="container-datos">
@@ -39,7 +40,7 @@
                 <h3 th:text="${Producto.precio}"></h3>
                 <h3 th:text="${Producto.stock}"></h3>
                 <a class="btn btn-info" th:height="20px" th:width="20px"  th:href="@{'/producto/detalle' + '?id=' + ${Producto.idproducto}}">+ Ver mas</a>
-                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'}">Agregar Carrito</a>
+                <a class="btn btn-warning" th:height="40px" th:width="150px"  th:href="@{'/producto/carrito'+ '?id=' + ${Producto.idproducto}}">Agregar Carrito</a>
                 <br>
                 <br>
                 <div sec:authorize="hasAnyAuthority('gestor')" th:marginheight="10px" >

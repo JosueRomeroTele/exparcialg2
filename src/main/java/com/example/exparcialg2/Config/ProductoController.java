@@ -3,6 +3,7 @@ package com.example.exparcialg2.Config;
 import com.example.exparcialg2.Dtos.StorageService;
 import com.example.exparcialg2.Entity.Pedido;
 import com.example.exparcialg2.Entity.Producto;
+import com.example.exparcialg2.Entity.Usuario;
 import com.example.exparcialg2.Repository.PedidoRepository;
 import com.example.exparcialg2.Repository.ProductoRepository;
 import com.example.exparcialg2.Service.ProductoService;
@@ -16,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -170,4 +173,37 @@ public class ProductoController {
         return "producto/datos";
     }
 
+
+    @GetMapping("/carrito")
+    public String anadirProductoCarrito(@RequestParam("id") int id, HttpSession session){
+        ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
+        Optional<Producto> optproducto = productoRepository.findById(id);
+        Producto productoaux=optproducto.get();
+        productoCarrito.add(productoaux);
+        /*int b=0;
+        int a=0;
+        for(Producto p : productoCarrito){
+            if(p.getCantidad()==4){
+                b=1;
+                break;
+            }
+            if(productoaux.getNombre().equals(p.getNombre()) && p.getCantidad()<=3){
+                a=id;
+                p.setCantidad(p.getCantidad()+1);
+                break;
+            }
+        }
+        if(a==0 && b==0){
+            productoaux.setCantidad(1);
+            productoCarrito.add(productoaux);
+        }*/
+        session.setAttribute("CarritoDeCompras",productoCarrito);
+        return "redirect:/producto";
+    }
+    @GetMapping("/misproductos")
+    public String miListaProductos(Model model,HttpSession session){
+        ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
+        model.addAttribute("milista",productoCarrito);
+        return "producto/milista";
+    }
 }
