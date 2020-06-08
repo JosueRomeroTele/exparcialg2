@@ -30,7 +30,7 @@ public class UsuarioController {
 
     @GetMapping("/nuevousuario")
     public String nuevo(Model model) {
-        return "formgestor";
+        return "usuario/formusuario";
     }
 
     @PostMapping("/registrarusuario")

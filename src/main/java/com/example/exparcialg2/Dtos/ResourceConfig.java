@@ -12,7 +12,7 @@ public class ResourceConfig implements WebMvcConfigurer {
         registry
                 .addResourceHandler("/fileUploaded/**")
                 //Aqui coloca la carpeta donde estaran las imagenes
-                .addResourceLocations("file:C:/Users//");
+                .addResourceLocations("file:C:/Users/User/imagenesexam");
     }
 
 }
