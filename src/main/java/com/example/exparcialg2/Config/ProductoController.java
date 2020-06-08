@@ -177,7 +177,7 @@ public class ProductoController {
 
 
     @GetMapping("/carrito")
-    public String anadirProductoCarrito(@RequestParam("id") int id, HttpSession session){
+    public String anadirProductoCarrito(@RequestParam("id") int id, HttpSession session,RedirectAttributes attr){
         ArrayList<Producto> productoCarrito = (ArrayList<Producto>) session.getAttribute("CarritoDeCompras");
         Optional<Producto> optproducto = productoRepository.findById(id);
         Producto productoaux=optproducto.get();
@@ -188,6 +188,10 @@ public class ProductoController {
             }
         }
         if(num<=3){productoCarrito.add(productoaux);}
+        else{
+            attr.addFlashAttribute("msg1", "Ya no puedes agregar nada mas CTMAREEEEEEE");
+
+        }
 
 
         /*int b=0;

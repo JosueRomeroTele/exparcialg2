@@ -23,6 +23,7 @@
     <br>
     <br>
     <div th:height="1200px" th:width="800px">
+        <div th:if="${msg1 != null}" th:text="${msg1}" class="alert alert-danger" role="alert"></div>
         <a th:href="@{'/producto/misproductos'}" th:text="${session.CarritoDeCompras.size()}"></a>
         <div th:each="Producto,pro:${listaProductos}" th:height="200" th:width="600px">
 
