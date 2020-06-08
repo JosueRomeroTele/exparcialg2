@@ -1,7 +1,9 @@
 package com.example.exparcialg2.Config;
 
 import com.example.exparcialg2.Dtos.StorageService;
+import com.example.exparcialg2.Entity.Pedido;
 import com.example.exparcialg2.Entity.Producto;
+import com.example.exparcialg2.Repository.PedidoRepository;
 import com.example.exparcialg2.Repository.ProductoRepository;
 import com.example.exparcialg2.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +29,16 @@ import java.util.stream.IntStream;
 @RequestMapping("/producto")
 public class ProductoController {
     @Autowired
-            ///hahhaha
     ProductoRepository productoRepository;
     @Autowired
     ProductoService productoService;
 
     @Autowired
     private StorageService storageService;
+
+    @Autowired
+    PedidoRepository pedidoRepository;
+
 
     @GetMapping(value = {"", "/"})
     public String listaProductos(Model model,@RequestParam Map<String, Object> params) {
@@ -68,7 +73,7 @@ public class ProductoController {
     @PostMapping("/guardar")
     public String guardarProducto(@RequestParam("archivo")MultipartFile file, @ModelAttribute("producto") @Valid Producto producto, BindingResult bindingResult,
                                   RedirectAttributes attr, Model model) {
-        
+
         HashMap<String,String> map = storageService.store(file);
         if(map.get("estado").equals("exito")){
             producto.setFoto(map.get("fileName"));
@@ -110,8 +115,16 @@ public class ProductoController {
     public String borrarProducto(Model model,
                                       @RequestParam("id") int id,
                                       RedirectAttributes attr) {
+        Boolean borrar =true;
+        for(Pedido pedido: pedidoRepository.findAll()){
+            for(Producto producto:pedido.getListaProductos()){
+                if(producto.getIdproducto()==id){
+                    borrar=false;
+                }
+            }
+        }
         Optional<Producto> optProducto = productoRepository.findById(id);
-        if (optProducto.isPresent()) {
+        if (optProducto.isPresent() && borrar) {
             productoRepository.deleteById(id);
             attr.addFlashAttribute("msg", "Producto borrado exitosamente");
         }
@@ -155,4 +168,5 @@ public class ProductoController {
     public String datosProductos(Model model){
         return "producto/datos";
     }
+
 }
