@@ -13,7 +13,7 @@
 <div class="wrap-login100">
     <form class="login100-form" th:action="@{/processlogin}" method="post">
 	    <span class="login100-form-title p-b-43">
-						Mosqoy
+						iniciar sesion
         </span>
         <br>
         <div align="center">
@@ -30,12 +30,19 @@
         <br>
         <div align="center">
             <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
+            <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
             <a th:href="@{/usuario/formusuario}">Registrase form</a>
             <a th:href="@{/usuario/formusuario}"> Registrarse</a>
+        </div>
+        <div>
+            <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
         </div>
         <br>
         <input type="submit" class="btn btn-info btn-block" value="Iniciar Sesion">
     </form >
+    <div>
+        <a  th:href="@{/resetPassword}">Recuperar Contraseña</a>
+    </div>
     <a th:href="@{/usuario/formusuario}">Registrase form</a>
 
 </div>
