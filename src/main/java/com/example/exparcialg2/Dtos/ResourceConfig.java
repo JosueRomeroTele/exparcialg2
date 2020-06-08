@@ -10,9 +10,9 @@ public class ResourceConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/fileUploaded/**")
+                .addResourceHandler("/imagenesexam/**")
                 //Aqui coloca la carpeta donde estaran las imagenes
-                .addResourceLocations("file:C:/Users//");
+                .addResourceLocations("file:C:/Users/User/imagenesexam/");
     }
 
 }

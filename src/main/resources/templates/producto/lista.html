@@ -13,6 +13,8 @@
 </li>
 
     <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+
+    <div th:text="'El total que posee nuestra tienda es de ' + ${totalItems}"></div>
     <form method="post" th:action="@{/producto/buscar}" style="width: 50%">
         <input name="searchField" class="form-control mb-3" type="text" placeholder="Search"/>
         <button class="btn btn-info" type="submit">Buscar</button>
@@ -26,7 +28,8 @@
             <div class="container-datos">
 
                 <div th:align="left" th:height="100px" th:width="100px" >
-                    <img height="90px" width="90px" th:src="@{|fileUploaded/${Producto.foto}|}">
+                    <img height="135px" width="135px" th:src="@{|imagenesexam/${Producto.foto}|}"></img>
+
                 </div>
 
             <div class="texto-producto" th:align="center" th:height="100px" th:width="450px">
@@ -46,7 +49,36 @@
 
             </div>
         </div>
-        <h2>Aqui va la Paginacion</h2>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+
+                <ul th:if="${last != 1}" class="pagination justify-content-center">
+
+                    <li class ="page-item" th:classappend="${prev == 0 ? 'disabled': '' }">
+                        <a class="page-link" th:if="${busqueda!=null}" th:href="@{'/producto/buscar' + '?page=' + ${prev}} "> Anterior </a>
+                        <a class="page-link" th:unless="${busqueda!=null}" th:href="@{'/producto' + '?page=' + ${prev}} "> Anterior </a>
+
+                    <li class ="page-item" th:each="page:${pages}" th:classappend="${current == page ? 'active' : ''}" >
+                    <a class="page-link" th:if="${busqueda!=null}" th:href="@{'/producto/buscar' + '?page=' + ${page}} " th:text="${page}"></a>
+                    <a class="page-link" th:unless="${busqueda!=null}" th:href="@{'/producto' + '?page=' + ${page}} " th:text="${page}"></a>
+
+                </li>
+
+                    <li class ="page-item" th:classappend="${current == last ? 'disabled': '' }">
+                        <a class="page-link" th:if="${busqueda!=null}" th:href="@{'/producto/buscar' + '?page=' + ${next}} "> Siguiente </a>
+                        <a class="page-link" th:unless="${busqueda!=null}" th:href="@{'/producto' + '?page=' + ${next}} "> siguiente </a>
+
+
+
+                </ul>
+
+            </div>
+        </div>
+
+
     </div>
 
 </div>

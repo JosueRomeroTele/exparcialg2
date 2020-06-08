@@ -5,7 +5,9 @@ import com.example.exparcialg2.Entity.Pedido;
 import com.example.exparcialg2.Entity.Producto;
 import com.example.exparcialg2.Repository.PedidoRepository;
 import com.example.exparcialg2.Repository.ProductoRepository;
+import com.example.exparcialg2.Service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +20,10 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/producto")
@@ -26,13 +31,37 @@ public class ProductoController {
     @Autowired
     ProductoRepository productoRepository;
     @Autowired
+    ProductoService productoService;
+
+    @Autowired
+    private StorageService storageService;
+
+    @Autowired
     PedidoRepository pedidoRepository;
 
-    StorageService storageService;
 
     @GetMapping(value = {"", "/"})
-    public String listaProductos(Model model) {
-        model.addAttribute("listaProductos", productoRepository.findAll());
+    public String listaProductos(Model model,@RequestParam Map<String, Object> params) {
+
+        int currentPage = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+        Page<Producto> page = productoService.listAll(currentPage);
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+
+        if(totalPages>0){
+            List<Integer> pages = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("pages", pages);
+        }
+
+        List<Producto> listaProductos = page.getContent();
+
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("listaProductos", listaProductos);
+        model.addAttribute("current", currentPage +1);
+        model.addAttribute("next", currentPage +2);
+        model.addAttribute("prev", currentPage);
+        model.addAttribute("last", totalPages);
         return "producto/lista";
     }
 
@@ -103,16 +132,28 @@ public class ProductoController {
         return "redirect:/producto";
     }
     @PostMapping("/buscar")
-    public String buscar(@RequestParam("searchField") String searchField,
-                                      Model model) {
-        List<Producto> lista = productoRepository.findAll();
-        List<Producto> lista2= new ArrayList<>();
-        for(Producto p : lista){
-            if(p.getNombre().contains(searchField) || p.getCodigoproducto().contains(searchField)){
-                lista2.add(p);
-            }
+    public String buscar(@RequestParam Map<String, Object> params, Model model) {
+
+        String busqueda = (String) params.get("searchField");
+
+        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+        Page<Producto> pageProducto = productoService.listSearch(busqueda,page);
+        int totalPage = pageProducto.getTotalPages();
+        long totalItems = pageProducto.getTotalElements();
+
+        if (totalPage > 0) {
+            List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pages", pages);
         }
-        model.addAttribute("listaProductos", lista2);
+
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("busqueda", busqueda);
+        model.addAttribute("listaProductos", pageProducto.getContent());
+        model.addAttribute("current", page + 1);
+        model.addAttribute("next", page + 2);
+        model.addAttribute("prev", page);
+        model.addAttribute("last", totalPage);
+
         return "producto/lista";
     }
     @GetMapping("/detalle")

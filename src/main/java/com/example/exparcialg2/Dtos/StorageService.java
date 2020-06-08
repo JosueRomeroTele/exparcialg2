@@ -15,7 +15,7 @@ import java.util.HashMap;
 @Component
 public class StorageService {
     //Coloca Aqui la carpeta donde se guardara las imagenes
-    String fileLocation="C:/User";
+    String fileLocation="C:/Users/User/imagenesexam/";
     public  HashMap<String,String> store(MultipartFile file){
         HashMap<String,String> map = new HashMap<>();
         String filename= StringUtils.cleanPath(file.getOriginalFilename());

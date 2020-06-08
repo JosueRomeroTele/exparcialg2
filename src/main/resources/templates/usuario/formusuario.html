@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
+<head th:replace="fragment/cabecera.html :: titulo(tittle='registro usuario')">
 <body>
 <div class="container">
 
-    <h2 th:text="Registro de usuario">Nuevo/Editar</h2>
+    <h2>Nuevo/Editar</h2>
     <hr/>
     <form method="post" th:action="@{'/usuario/registrarusuario'}" th:object="${usuario}">
         <input type="hidden" th:field="*{idusuario}" />
