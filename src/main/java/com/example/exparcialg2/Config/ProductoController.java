@@ -215,6 +215,8 @@ public class ProductoController {
 
         }
         pedido.setTotalpago(total);
+        Usuario usuario1 = (Usuario) session.getAttribute("usuario");
+        pedido.setUsuario(usuario1);
         pedido.setListaProductos(productoCarrito);
         Date fecha = new Date();
         pedido.setFechacompra(fecha);

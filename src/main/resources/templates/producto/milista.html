@@ -13,7 +13,8 @@
     </li>
     <div th:height="1200px" th:width="800px">
         <a th:href="@{'/producto/misproductos'}" th:text="${session.CarritoDeCompras.size()}"></a>
-        <h2>Carrito De Mierda!!!</h2>
+        <h2>Carrito De Compras de la bodega CHABELITA</h2>
+
         <div th:each="Producto,pro:${milista}" th:height="200" th:width="600px">
 
             <div class="container-datos">
@@ -30,7 +31,7 @@
                     <h2>Cantidad : 1</h2>
 
                 </div>
-
+                <a th:href="@{/producto/comprar}">COMPRAR PRODUCTOS</a>
             </div>
         </div>
 

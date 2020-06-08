@@ -24,8 +24,12 @@
                 <li sec:authorize="hasAnyAuthority('registrado')" class="nav-item">
                     <a class="nav-link" th:href="@{/pedidos}">PEDIDO</a>
                 </li>
-
+                <li sec:authorize="hasAnyAuthority('registrado')">
+                    <a th:href="@{'/producto/misproductos'}" th:text="|MI CARRITO ( ${session.CarritoDeCompras.size()} )|"></a>
+                </li>
             </ul>
+
+
             <div sec:authorize="isAnonymous()" class="form-inline my-2 my-lg-0">
                 <a class="nav-link" th:href="@{/loginForm}">Iniciar Sesión</a>
             </div>
