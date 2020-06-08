@@ -7,6 +7,19 @@ import javax.validation.constraints.*;
 
 
 @Entity
+@NamedStoredProcedureQueries({
+        @NamedStoredProcedureQuery(name = "crearusuario", procedureName = "crearusuario",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "nombre", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "apellido", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "dni", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "correo", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "contrasena", type = String.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "rol", type = Integer.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "enable", type = boolean.class),
+
+        })
+})
 public class Usuario implements Serializable {
     @Id
     @Column(name = "idUsuario")

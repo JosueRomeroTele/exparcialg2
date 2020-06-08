@@ -29,29 +29,37 @@ public class UsuarioController {
     }
 
     @GetMapping("/nuevousuario")
-    public String nuevo(Model model) {
+    public String nuevo(@ModelAttribute("usuario") Usuario usuario) {
+
         return "usuario/formusuario";
     }
 
     @PostMapping("/registrarusuario")
     public String guardar(Model model, @ModelAttribute("usuario") @Valid Usuario usuario, BindingResult bindingResult, RedirectAttributes redirectAttributes,
-                          @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestParam("dni") String dni, @RequestParam("correo") String correo,
-                          @RequestParam("contraseña") String contrasena, @RequestParam("ena") boolean ena) {
+                          @RequestParam("nombre") String nombre, @RequestParam("apellido") String apellido, @RequestParam("dni") int dni, @RequestParam("correo") String correo,
+                          @RequestParam("contrasena") String contrasena) {
         if (bindingResult.hasErrors()) {
             return "usuario/formusuario";
         }
         //store procedure
-        int rolguardado = 2;
-
+        int rolguardado = 5;
+        boolean ena = true;
         String contrahash = encriptar(contrasena);
+        /*
         crearempleado(nombre, apellido, dni, correo, contrahash, rolguardado, ena);
         return "listaproductoss/modificar";
-    }
 
+         */
+        usuarioRepository.crearusuariosp(nombre, apellido, dni, correo, contrasena, rolguardado, ena);
+        return "listaproductoss/modificar";
+    }
+/*
     public void crearempleado(String nombre, String apellido, String dni, String correo, String contrasena, int rol, boolean ena) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.update("call crearusuario(?, ?, ?, ?, ?, ?, ?)", nombre, apellido, dni, correo, contrasena, rol, ena);
     }
+
+ */
 
     @GetMapping("/nuevogestor")
     public String nuevogestor() {
