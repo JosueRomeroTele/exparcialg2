@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,6 +169,10 @@ public class ProductoController {
     @GetMapping("/datos")
     public String datosProductos(Model model){
         return "producto/datos";
+    }
+
+    public String precompra(HttpSession session){
+        return "";
     }
 
 }
