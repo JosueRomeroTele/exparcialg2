@@ -17,6 +17,9 @@ public class AdminController {
     
     @GetMapping("/jaja")
     public String haha(){
-    return "";
+    String ar = "arriba peru";        
+        return ar;
     }
+   
+    
 }
