@@ -14,4 +14,9 @@ public class AdminController {
 
         return "prueba/logueado";
     }
+    
+    @GetMapping("/jaja")
+    public String haha(){
+    return "";
+    }
 }
